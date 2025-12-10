@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Web Bán Hàng</title>
+    <!-- Tải Tailwind CSS CDN (sử dụng các lớp utility của Bootstrap/Tailwind) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        /* Custom styling cho giao diện */
+        .card-block {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        .sidebar {
+            /* Giúp thanh bên luôn hiển thị trên mobile bằng cách đặt hàng trước */
+            order: 2;
+        }
+        @media (min-width: 1024px) {
+            .sidebar {
+                /* Đặt thanh bên về vị trí ban đầu trên desktop */
+                order: 0;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Thanh điều hướng (Navbar) - Bao gồm Logo và Khối Tìm kiếm -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex flex-col lg:flex-row items-center justify-between space-y-3 lg:space-y-0">
+                <!-- Logo -->
+                <div class="text-2xl font-bold text-indigo-600">
+                    <a href="#" onclick="navigate('home')">SHOP ONLINE</a>
+                </div>
+
+                <!-- Khối Tìm kiếm (Search Block) -->
+                <div class="w-full lg:w-1/3">
+                    <div class="relative">
+                        <input type="text" placeholder="Tìm kiếm sản phẩm..." class="w-full py-2 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-150">
+                        <button class="absolute right-0 top-0 mt-2 mr-3 text-gray-500 hover:text-indigo-600 transition duration-150">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Menu chính -->
+                <nav class="flex space-x-4">
+                    <a href="#" onclick="navigate('home')" class="text-gray-700 hover:text-indigo-600 font-semibold transition duration-150">Trang chủ</a>
+                    <a href="#" onclick="navigate('list')" class="text-gray-700 hover:text-indigo-600 font-semibold transition duration-150">Danh sách SP</a>
+                    <!-- Đã loại bỏ liên kết "Tài khoản" theo yêu cầu của người dùng -->
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Nội dung chính (Main Content) -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 my-8 flex-grow">
+        <!-- Grid Layout (row) - Thanh bên (3/12) và Nội dung (9/12) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+            <!-- Cột Thanh bên (Sidebar) - lg:col-span-3 (3/12) -->
+            <div class="lg:col-span-3 sidebar">
+                
+                <!-- Khối Chủng loại (Categories Block) -->
+                <div class="card-block">
+                    <h3 class="text-lg font-bold text-gray-800 mb-3 border-b pb-2">Chủng loại Sản phẩm</h3>
+                    <ul class="space-y-1">
+                        <!-- Danh sách Chủng loại đã được tinh gọn -->
+                        <li><a href="#" onclick="navigate('list', 'Điện thoại di động')" class="text-indigo-600 hover:text-indigo-800 transition duration-150">Điện thoại di động</a></li>
+                        <li><a href="#" onclick="navigate('list', 'Máy tính xách tay')" class="text-indigo-600 hover:text-indigo-800 transition duration-150">Máy tính xách tay</a></li>
+                        <li><a href="#" onclick="navigate('list', 'Tai Nghe')" class="text-indigo-600 hover:text-indigo-800 transition duration-150">Tai Nghe</a></li>
+                    </ul>
+                </div>
+
+                <!-- Khối Giỏ hàng (Shopping Cart Block) -->
+                <div class="card-block bg-indigo-50 border border-indigo-200">
+                    <h3 class="text-lg font-bold text-gray-800 mb-3 border-b border-indigo-200 pb-2 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        Giỏ hàng của bạn
+                    </h3>
+                    <!-- Giỏ hàng được render động tại đây -->
+                    <div id="cart-items" class="space-y-3">
+                        <!-- Sản phẩm mẫu sẽ được render bằng JS -->
+                    </div>
+                    <div class="border-t pt-2 mt-3 flex justify-between items-center">
+                        <span class="font-bold text-md">Tổng cộng:</span>
+                        <span id="cart-total" class="font-bold text-lg text-red-600">0₫</span>
+                    </div>
+                    <button class="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition duration-150 shadow-md">
+                        Xem và Thanh toán
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cột Nội dung chính (Content Area) - lg:col-span-9 (9/12) -->
+            <div class="lg:col-span-9">
+                <div id="main-content" class="card-block min-h-[500px]">
+                    <!-- Nội dung sẽ được cập nhật bởi JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chân trang (Footer) -->
+    <footer class="bg-gray-800 text-white mt-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm">
+            <p>&copy; 2025 Layout E-commerce.| <a href="#" class="text-indigo-400 hover:underline">Điều khoản</a> | <a href="#" class="text-indigo-400 hover:underline">Liên hệ</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const contentDiv = document.getElementById('main-content');
+        // Thêm các biến DOM cho Giỏ hàng
+        const cartItemsDiv = document.getElementById('cart-items');
+        const cartTotalSpan = document.getElementById('cart-total');
+
+        // Khởi tạo giỏ hàng mẫu
+        let cart = [
+            { id: 101, name: "Điện thoại A", price: 15000000, quantity: 1 },
+            { id: 102, name: "Bàn phím cơ", price: 1200000, quantity: 2 }
+        ];
+
+        /**
+         * Định dạng số thành chuỗi tiền tệ Việt Nam (VND).
+         * @param {number} amount - Số tiền.
+         * @returns {string} Chuỗi tiền tệ.
+         */
+        function formatVND(amount) {
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+        }
+
+        /**
+         * Tính tổng giá trị giỏ hàng.
+         */
+        function calculateTotal() {
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotalSpan.textContent = formatVND(total);
+        }
+
+        /**
+         * Cập nhật số lượng sản phẩm trong giỏ hàng.
+         * @param {number} productId - ID sản phẩm.
+         * @param {number} change - Số lượng thay đổi (+1 hoặc -1).
+         */
+        function updateQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+
+            if (item) {
+                const newQuantity = item.quantity + change;
+                
+                if (newQuantity <= 0) {
+                    // Nếu số lượng giảm về 0 hoặc âm, xóa sản phẩm
+                    removeItem(productId);
+                } else {
+                    // Cập nhật số lượng
+                    item.quantity = newQuantity;
+                    renderCart();
+                }
+            }
+        }
+
+        /**
+         * Xóa sản phẩm khỏi giỏ hàng dựa trên ID.
+         * @param {number} productId - ID của sản phẩm cần xóa.
+         */
+        function removeItem(productId) {
+            // Lọc ra sản phẩm có ID trùng khớp để xóa
+            cart = cart.filter(item => item.id !== productId);
+            renderCart(); // Render lại giỏ hàng
+            console.log(`Đã xóa sản phẩm ID ${productId} khỏi giỏ hàng.`);
+        }
+        
+        /**
+         * Cập nhật hiển thị giỏ hàng trên thanh bên.
+         */
+        function renderCart() {
+            cartItemsDiv.innerHTML = ''; // Xóa nội dung cũ
+            
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = '<p class="text-sm text-gray-500 italic">Giỏ hàng trống.</p>';
+            } else {
+                cart.forEach(item => {
+                    // Tạo HTML cho mỗi sản phẩm trong giỏ hàng, bao gồm nút xóa và chỉnh sửa số lượng
+                    const itemHtml = `
+                        <div class="flex flex-col border-b border-indigo-100 pb-2 mb-2">
+                            <!-- Dòng 1: Tên và nút xóa -->
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-sm font-medium text-gray-800 truncate">${item.name}</span>
+                                <button 
+                                    onclick="removeItem(${item.id})" 
+                                    title="Xóa sản phẩm"
+                                    class="text-red-500 hover:text-red-700 transition duration-150 p-1 rounded-full hover:bg-indigo-100 flex-shrink-0"
+                                >
+                                    <!-- Icon thùng rác -->
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                            </div>
+
+                            <!-- Dòng 2: Số lượng và Tổng tiền Item -->
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-1">
+                                    <button 
+                                        onclick="updateQuantity(${item.id}, -1)" 
+                                        class="bg-indigo-200 text-indigo-800 w-6 h-6 rounded-full hover:bg-indigo-300 transition text-sm font-bold"
+                                        title="Giảm số lượng"
+                                    >-</button>
+                                    <span class="text-sm font-semibold w-4 text-center">${item.quantity}</span>
+                                    <button 
+                                        onclick="updateQuantity(${item.id}, 1)" 
+                                        class="bg-indigo-200 text-indigo-800 w-6 h-6 rounded-full hover:bg-indigo-300 transition text-sm font-bold"
+                                        title="Tăng số lượng"
+                                    >+</button>
+                                    <span class="text-xs text-gray-500 ml-2 hidden sm:inline-block">x ${formatVND(item.price)}</span>
+                                </div>
+                                <span class="text-md text-red-600 font-bold flex-shrink-0">${formatVND(item.price * item.quantity)}</span>
+                            </div>
+                        </div>
+                    `;
+                    cartItemsDiv.innerHTML += itemHtml;
+                });
+            }
+
+            // Cập nhật tổng cộng
+            calculateTotal();
+        }
+
+        /**
+         * Thêm sản phẩm vào giỏ hàng từ trang chi tiết.
+         * @param {number} id - ID sản phẩm.
+         * @param {string} name - Tên sản phẩm.
+         * @param {number} price - Giá sản phẩm.
+         */
+        function addProductToCart(id, name, price) {
+            // Lấy số lượng từ input trên trang chi tiết (giả định input có id='quantity')
+            const quantityInput = document.getElementById('quantity');
+            const quantity = parseInt(quantityInput ? quantityInput.value : 1);
+            
+            // Tìm sản phẩm trong giỏ hàng
+            const existingItem = cart.find(item => item.id === id);
+
+            if (existingItem) {
+                // Nếu sản phẩm đã tồn tại, tăng số lượng
+                existingItem.quantity += quantity;
+            } else {
+                // Nếu sản phẩm chưa tồn tại, thêm mới
+                cart.push({ id, name, price, quantity });
+            }
+
+            renderCart(); // Cập nhật hiển thị giỏ hàng
+            
+            // Đặt lại số lượng input về 1 sau khi thêm
+            if (quantityInput) quantityInput.value = 1;
+            
+            // Thông báo (thực tế sẽ dùng modal/toast)
+            console.log(`Đã thêm ${quantity}x ${name} vào giỏ hàng.`);
+        }
+        
+        /**
+         * Hàm mô phỏng việc chuyển đổi nội dung giữa các trang
+         * @param {string} page - Tên trang ('home', 'list', 'detail')
+         * @param {string|null} [param=null] - Tham số bổ sung, ví dụ: tên chủng loại
+         */
+        function navigate(page, param = null) {
+            let htmlContent = '';
+            
+            // Đặt tiêu đề khối nội dung
+            let title = '';
+            
+            switch (page) {
+                case 'home':
+                    title = 'Chào mừng đến với Trang chủ';
+                    htmlContent = `
+                        <h2 class="text-3xl font-extrabold text-gray-900 mb-6">${title}</h2>
+                        <p class="text-gray-600 mb-4">Đây là khu vực hiển thị các sản phẩm nổi bật, banner quảng cáo, và các chương trình khuyến mãi đặc biệt.</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Product Teaser 1 -->
+                            <div class="bg-white border rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300">
+                                <img src="https://2handland.com/assets/image/upload/may-tinh-cu-92.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/4f46e5/ffffff?text=Product+1';" alt="Sản phẩm 1" class="w-full h-40 object-cover">
+                                <div class="p-4">
+                                    <h4 class="text-lg font-semibold text-gray-800">Laptop Gaming X1</h4>
+                                    <p class="text-red-500 font-bold mt-1">25.000.000₫</p>
+                                    <button onclick="navigate('detail')" class="mt-3 bg-indigo-500 hover:bg-indigo-600 text-white text-sm py-2 px-4 rounded-lg w-full">Xem Chi Tiết</button>
+                                </div>
+                            </div>
+                            <!-- Product Teaser 2 -->
+                            <div class="bg-white border rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300">
+                                <img src="https://dbk.vn/uploads/ckfinder/images/tin-tuc-2/may-anh-co.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/06b6d4/ffffff?text=Product+2';" alt="Sản phẩm 2" class="w-full h-40 object-cover">
+                                <div class="p-4">
+                                    <h4 class="text-lg font-semibold text-gray-800">Máy ảnh Mirrorless</h4>
+                                    <p class="text-red-500 font-bold mt-1">18.500.000₫</p>
+                                    <button onclick="navigate('detail')" class="mt-3 bg-indigo-500 hover:bg-indigo-600 text-white text-sm py-2 px-4 rounded-lg w-full">Xem Chi Tiết</button>
+                                </div>
+                            </div>
+                            <!-- Promotion Banner -->
+                            <div class="lg:col-span-1 bg-gradient-to-r from-yellow-400 to-red-500 p-6 rounded-xl flex flex-col justify-center items-center text-white text-center shadow-inner">
+                                <h4 class="text-2xl font-bold mb-2">FLASH SALE 50%</h4>
+                                <p class="text-sm">Chỉ diễn ra trong hôm nay! Đừng bỏ lỡ.</p>
+                                <a href="#" class="mt-3 inline-block bg-white text-red-600 font-semibold py-2 px-4 rounded-full hover:bg-gray-100 transition duration-150">Mua Ngay</a>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'list':
+                    const category = param || 'Tất cả Sản phẩm';
+                    title = `Danh sách Sản phẩm: ${category}`;
+                    
+                    htmlContent = `
+                        <h2 class="text-3xl font-extrabold text-gray-900 mb-6">${title}</h2>
+                        
+                        <!-- Lọc/Sắp xếp -->
+                        <div class="flex flex-wrap items-center space-x-4 mb-6 p-3 bg-gray-50 rounded-lg border">
+                            <span class="text-sm font-medium text-gray-700">Sắp xếp theo:</span>
+                            <select class="py-1 px-2 border rounded-md text-sm">
+                                <option>Mới nhất</option>
+                                <option>Giá: Thấp đến Cao</option>
+                                <option>Giá: Cao đến Thấp</option>
+                                <option>Bán chạy nhất</option>
+                            </select>
+                            <span class="text-sm text-gray-500 ml-4 hidden sm:block">Tìm thấy 128 sản phẩm phù hợp.</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                            <!-- Product Card 1 (Tai Nghe) -->
+                            <div class="bg-white border rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300">
+                                <img src="https://st.meta.vn/Data/image/2020/04/20/tai-nghe-gaming-chup-tai-headphone-gaming-microlab-g7-t1.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/10b981/ffffff?text=Product+1';" alt="Sản phẩm 1" class="w-full h-40 object-cover">
+                                <div class="p-4">
+                                    <h4 class="text-lg font-semibold text-gray-800 truncate">Tai Nghe Không Dây Pro Z</h4>
+                                    <p class="text-sm text-gray-500 mb-2">Thiết bị âm thanh</p>
+                                    <p class="text-red-500 font-bold">2.500.000₫</p>
+                                    <button onclick="navigate('detail')" class="mt-3 bg-indigo-500 hover:bg-indigo-600 text-white text-sm py-2 px-4 rounded-lg w-full">Xem Chi Tiết</button>
+                                </div>
+                            </div>
+                             <!-- Product Card 2 (Máy tính) -->
+                            <div class="bg-white border rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300">
+                                <img src="https://2handland.com/assets/image/upload/may-tinh-cu-92.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/f97316/ffffff?text=Product+2';" alt="Sản phẩm 2" class="w-full h-40 object-cover">
+                                <div class="p-4">
+                                    <h4 class="text-lg font-semibold text-gray-800 truncate">Laptop Văn Phòng Model X</h4>
+                                    <p class="text-sm text-gray-500 mb-2">Máy tính xách tay</p>
+                                    <p class="text-red-500 font-bold">14.800.000₫</p>
+                                    <button onclick="navigate('detail')" class="mt-3 bg-indigo-500 hover:bg-indigo-600 text-white text-sm py-2 px-4 rounded-lg w-full">Xem Chi Tiết</button>
+                                </div>
+                            </div>
+                             <!-- Product Card 3 (Điện thoại) -->
+                            <div class="bg-white border rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnzisvazjT0RxfBqsBsdAAfgYOMidmBU2XnA&s" onerror="this.onerror=null; this.src='https://placehold.co/400x300/ef4444/ffffff?text=Product+3';" alt="Sản phẩm 3" class="w-full h-40 object-cover">
+                                <div class="p-4">
+                                    <h4 class="text-lg font-semibold text-gray-800 truncate">Smartphone A1 Pro</h4>
+                                    <p class="text-sm text-gray-500 mb-2">Điện thoại di động</p>
+                                    <p class="text-red-500 font-bold">7.500.000₫</p>
+                                    <button onclick="navigate('detail')" class="mt-3 bg-indigo-500 hover:bg-indigo-600 text-white text-sm py-2 px-4 rounded-lg w-full">Xem Chi Tiết</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Phân trang -->
+                        <div class="flex justify-center mt-8">
+                            <nav class="flex space-x-1" aria-label="Pagination">
+                                <a href="#" class="px-3 py-1 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100">Trước</a>
+                                <a href="#" class="px-3 py-1 bg-indigo-600 text-white border border-indigo-600 rounded-lg">1</a>
+                                <a href="#" class="px-3 py-1 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100">2</a>
+                                <a href="#" class="px-3 py-1 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100">3</a>
+                                <a href="#" class="px-3 py-1 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100">Sau</a>
+                            </nav>
+                        </div>
+                    `;
+                    break;
+
+                case 'detail':
+                    title = 'Chi tiết Sản phẩm: Tủ Lạnh Inverter 500L';
+                    htmlContent = `
+                        <h2 class="text-3xl font-extrabold text-gray-900 mb-6">${title}</h2>
+                        
+                        <!-- Cấu trúc chi tiết (Image + Info) -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <!-- Cột hình ảnh -->
+                            <div>
+                                <img src="https://bizweb.dktcdn.net/thumb/1024x1024/100/359/147/products/1-0ecaefa4-4a47-46db-80bc-5e6490e72d24.jpg?v=1658037819590" onerror="this.onerror=null; this.src='https://placehold.co/600x600/3b82f6/ffffff?text=Refrigerator';" alt="Hình ảnh sản phẩm chi tiết" class="w-full h-auto rounded-xl shadow-lg border">
+                                
+                                <!-- Thumbnails (Ảnh nhỏ) -->
+                                <div class="flex space-x-2 mt-4">
+                                    <img src="https://bizweb.dktcdn.net/thumb/1024x1024/100/359/147/products/1-0ecaefa4-4a47-46db-80bc-5e6490e72d24.jpg?v=1658037819590" alt="Thumbnail 1" class="w-16 h-16 rounded-lg border-2 border-indigo-600 cursor-pointer">
+                                    <img src="https://bizweb.dktcdn.net/thumb/1024x1024/100/359/147/products/1-0ecaefa4-4a47-46db-80bc-5e6490e72d24.jpg?v=1658037819590" alt="Thumbnail 2" class="w-16 h-16 rounded-lg border cursor-pointer opacity-75 hover:opacity-100">
+                                    <img src="https://bizweb.dktcdn.net/thumb/1024x1024/100/359/147/products/1-0ecaefa4-4a47-46db-80bc-5e6490e72d24.jpg?v=1658037819590" alt="Thumbnail 3" class="w-16 h-16 rounded-lg border cursor-pointer opacity-75 hover:opacity-100">
+                                </div>
+                            </div>
+                            
+                            <!-- Cột thông tin -->
+                            <div>
+                                <p class="text-sm text-indigo-600 font-semibold uppercase mb-2">Thương hiệu: Electra | Mã SP: TL500X</p>
+                                <div class="flex items-center mb-4">
+                                    <span class="text-yellow-400 mr-2">★★★★★</span>
+                                    <span class="text-gray-500 text-sm">(156 Đánh giá)</span>
+                                </div>
+
+                                <p class="text-4xl font-bold text-red-600 mb-4">22.990.000₫</p>
+                                <p class="text-base text-gray-700 mb-6">Tủ lạnh Inverter 500L với công nghệ làm lạnh kép, tiết kiệm điện năng tối ưu và giữ thực phẩm tươi lâu hơn gấp 2 lần. Thiết kế hiện đại, sang trọng.</p>
+
+                                <!-- Phần chọn mua -->
+                                <div class="space-y-4 p-4 bg-gray-50 rounded-lg border">
+                                    <div class="flex items-center space-x-4">
+                                        <label for="quantity" class="font-medium">Số lượng:</label>
+                                        <!-- ID quantity được sử dụng trong hàm addProductToCart -->
+                                        <input type="number" id="quantity" value="1" min="1" class="w-20 p-2 border rounded-lg">
+                                    </div>
+                                    <button 
+                                        onclick="addProductToCart(103, 'Tủ Lạnh Inverter 500L', 22990000)" 
+                                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg text-lg transition duration-150 shadow-lg"
+                                    >
+                                        Thêm vào Giỏ hàng
+                                    </button>
+                                    <button class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg text-lg transition duration-150">
+                                        Mua Ngay
+                                    </button>
+                                </div>
+
+                                <!-- Thông số kỹ thuật -->
+                                <div class="mt-8">
+                                    <h3 class="text-xl font-bold text-gray-800 mb-3">Thông số kỹ thuật</h3>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li class="flex justify-between border-b py-1"><span>Dung tích:</span> <span class="font-medium">500 Lít</span></li>
+                                        <li class="flex justify-between border-b py-1"><span>Công nghệ:</span> <span class="font-medium">Inverter, Twin Cooling Plus</span></li>
+                                        <li class="flex justify-between border-b py-1"><span>Bảo hành:</span> <span class="font-medium">24 tháng</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            // Cập nhật nội dung
+            contentDiv.innerHTML = htmlContent;
+            
+            // Cập nhật tiêu đề trang (optional)
+            document.title = title;
+        }
+
+        // Tải Trang chủ và Giỏ hàng khi trang vừa load
+        window.onload = () => {
+            navigate('home');
+            renderCart(); // Khởi tạo giỏ hàng
+        };
+    </script>
+</body>
+</html>

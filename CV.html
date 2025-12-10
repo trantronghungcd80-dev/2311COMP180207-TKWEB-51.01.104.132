@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trần Trọng Hưng - Sinh viên / Thực tập sinh CV</title>
+    <!-- Tải Tailwind CSS để styling chuyên nghiệp và responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Tải Icon Lucide cho các ký hiệu đặc biệt -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        /* Custom style cho cột bên trái - tạo đường cong như mẫu */
+        .left-column {
+            background-color: #0d47a1; /* Màu xanh đậm */
+            color: #ffffff;
+            position: relative;
+            padding: 2.5rem 2rem;
+            z-index: 10;
+        }
+        .left-column::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 30px; /* Độ rộng của đường cong */
+            background-color: #0d47a1;
+            /* Tạo đường cong bằng border-radius */
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+            z-index: -1;
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        .section-title.white-text {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+        }
+        .section-title.blue-text {
+             border-bottom: 1px solid #e5e7eb;
+             font-size: 1.25rem;
+             color: #0d47a1;
+        }
+        /* Styling cho thanh tiến trình kỹ năng */
+        .skill-bar {
+            height: 6px;
+            background-color: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        .skill-level {
+            height: 100%;
+            background-color: #ffc107; /* Màu vàng nổi bật */
+        }
+        .work-entry {
+            border-left: 2px solid #0d47a1;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .work-entry:before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0.5rem;
+            width: 14px;
+            height: 14px;
+            background-color: #0d47a1;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            z-index: 10;
+        }
+        /* Ký hiệu sao cho kỹ năng */
+        .star-icon {
+            display: inline-block;
+            margin-right: 0.1rem;
+            color: #ffc107;
+        }
+
+        @media (max-width: 768px) {
+            .cv-grid {
+                grid-template-columns: 1fr !important; /* Chuyển sang 1 cột trên mobile */
+            }
+            .left-column {
+                 padding-bottom: 1.5rem;
+            }
+            .left-column::after {
+                content: none; /* Bỏ đường cong trên mobile */
+            }
+        }
+    </style>
+    <!-- Khởi tạo Lucide icons sau khi DOM được tải -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+             // Đảm bảo các icon được render
+             if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+             }
+        });
+
+        // Hàm giả lập cho thanh kỹ năng
+        function renderSkillBar(percentage) {
+            return `
+                <div class="skill-bar">
+                    <div class="skill-level" style="width: ${percentage}%;"></div>
+                </div>
+            `;
+        }
+    </script>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="max-w-6xl mx-auto shadow-2xl rounded-xl overflow-hidden bg-white cv-grid md:grid md:grid-cols-[40%_60%]">
+        <!-- Cột Trái (40%) -->
+        <div class="left-column">
+            <!-- PHẦN HÌNH ẢNH VÀ TÊN -->
+            <div class="flex flex-col items-center text-center mb-6">
+                <!-- Vùng ảnh đại diện (giả lập đường cong) -->
+                <div class="relative w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    <!-- Ảnh placeholder, bạn thay bằng URL ảnh của mình -->
+                    <img src="canhan.jpg.jpg" alt="Ảnh Đại Diện" class="w-full h-full object-cover">
+                </div>
+                <h1 class="text-3xl font-extrabold tracking-wider uppercase">TRẦN TRỌNG</h1>
+                <h1 class="text-3xl font-extrabold tracking-wider uppercase -mt-2">HƯNG</h1>
+                <p class="text-sm font-light mt-2 text-yellow-300">SINH VIÊN / THỰC TẬP SINH CÓ ĐỊNH HƯỚNG</p>
+            </div>
+
+            <!-- LIÊN HỆ -->
+            <div class="mb-6 border-t border-gray-600 pt-4">
+                <h2 class="section-title white-text flex items-center mb-3">
+                    <i data-lucide="phone" class="w-4 h-4 mr-2"></i> CONTACT
+                </h2>
+                <p class="text-sm font-light mb-1">
+                    <span class="font-medium mr-2">📞</span> 0373014000
+                </p>
+                <p class="text-sm font-light mb-1">
+                    <span class="font-medium mr-2">✉️</span> trantronghungcd80@gmail.com
+                </p>
+                 <p class="text-sm font-light mb-1">
+                    <span class="font-medium mr-2">🔗</span> <a href="https://www.facebook.com/tronghung.tran.5817/?locale=vi_VN" target="_blank" class="text-white underline hover:text-yellow-300">Facebook</a>
+                </p>
+                <p class="text-sm font-light">
+                    <span class="font-medium mr-2">📍</span> 138/15 phường 2 Nguyễn Trãi, quận 5, TPHCM, Việt Nam
+                </p>
+            </div>
+
+            <!-- THÔNG TIN CƠ BẢN -->
+            <div class="mb-6 border-t border-gray-600 pt-4">
+                <h2 class="section-title white-text flex items-center mb-3">
+                    <i data-lucide="info" class="w-4 h-4 mr-2"></i> BASIC INFORMATION
+                </h2>
+                <div class="grid grid-cols-2 gap-y-1 text-sm font-light">
+                    <p class="font-medium">Birthday:</p><p>08/11/2007</p>
+                    <p class="font-medium">Nationality:</p><p>Local Vietnamese</p>
+                    <p class="font-medium">Marital Status:</p><p>Single</p>
+                    <p class="font-medium">Gender:</p><p>Male</p>
+                </div>
+            </div>
+
+            <!-- KỸ NĂNG (SKILLS) -->
+            <div class="mb-6 border-t border-gray-600 pt-4">
+                <h2 class="section-title white-text flex items-center mb-3">
+                    <i data-lucide="wrench" class="w-4 h-4 mr-2"></i> SKILLS
+                </h2>
+                <div class="space-y-3 text-sm font-light">
+                    <div>
+                        <p class="font-medium">Học tập & Nghiên cứu</p>
+                        <!-- 85% level -->
+                        <script>document.write(renderSkillBar(85));</script>
+                    </div>
+                    <div>
+                        <p class="font-medium">Tư duy logic</p>
+                        <!-- 90% level -->
+                        <script>document.write(renderSkillBar(90));</script>
+                    </div>
+                    <div>
+                        <p class="font-medium">Làm việc nhóm</p>
+                        <!-- 80% level -->
+                        <script>document.write(renderSkillBar(80));</script>
+                    </div>
+                    <div>
+                        <p class="font-medium">Sử dụng Microsoft Office</p>
+                        <!-- 95% level -->
+                        <script>document.write(renderSkillBar(95));</script>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NGÔN NGỮ (LANGUAGES) -->
+            <div class="mb-6 border-t border-gray-600 pt-4">
+                <h2 class="section-title white-text flex items-center mb-3">
+                    <i data-lucide="message-square" class="w-4 h-4 mr-2"></i> LANGUAGES
+                </h2>
+                <div class="space-y-3 text-sm font-light">
+                    <div>
+                        <p class="font-medium">Vietnamese</p>
+                        <!-- 100% level -->
+                        <script>document.write(renderSkillBar(100));</script>
+                    </div>
+                    <div>
+                        <p class="font-medium">English</p>
+                        <!-- 65% level - Giả định trình độ trung bình/cơ bản -->
+                        <script>document.write(renderSkillBar(65));</script>
+                    </div>
+                    <div>
+                        <p class="font-medium">French</p>
+                        <!-- 30% level - Giả định cơ bản -->
+                        <script>document.write(renderSkillBar(10));</script>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SỞ THÍCH (Optional - thêm vào nếu cần) -->
+            <div class="mb-0 border-t border-gray-600 pt-4">
+                <h2 class="section-title white-text flex items-center mb-3">
+                    <i data-lucide="heart" class="w-4 h-4 mr-2"></i> HOBBIES
+                </h2>
+                <p class="text-sm font-light">
+                    Công nghệ, Chơi Game, Tìm hiểu về Kinh doanh, Bóng đá.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Cột Phải (60%) -->
+        <div class="p-6 sm:p-8">
+
+            <!-- GIỚI THIỆU SƠ LƯỢC (INTRODUCTION) -->
+            <div class="mb-8">
+                <h2 class="section-title blue-text mb-4 flex items-center">
+                    <i data-lucide="user" class="w-6 h-6 mr-2"></i> GIỚI THIỆU BẢN THÂN
+                </h2>
+                <p class="text-gray-700 text-sm leading-relaxed">
+                    Là một sinh viên trẻ có định hướng, khao khát học hỏi và đóng góp vào lĩnh vực công nghệ/kinh doanh. Tôi có khả năng tự học tốt, luôn chủ động tìm kiếm các cơ hội thực hành và làm việc nhóm. Mục tiêu trước mắt là tìm kiếm cơ hội thực tập hoặc tham gia các dự án thực tế để áp dụng kiến thức và phát triển kỹ năng chuyên môn.
+                </p>
+            </div>
+
+            <!-- KINH NGHIỆM LÀM VIỆC (WORK HISTORY) -> CHUYỂN THÀNH DỰ ÁN/HOẠT ĐỘNG -->
+            <div class="mb-8">
+                <h2 class="section-title blue-text mb-6 flex items-center">
+                    <i data-lucide="layers" class="w-6 h-6 mr-2"></i> DỰ ÁN & HOẠT ĐỘNG THỰC TẾ
+                </h2>
+
+                <div class="work-entry mb-6">
+                    <p class="text-xs text-gray-500 italic">09/2024 - 12/2024</p>
+                    <h3 class="text-base font-semibold text-gray-900 mt-1">DỰ ÁN XÂY DỰNG WEBSITE CÁ NHÂN</h3>
+                    <p class="text-sm font-medium text-gray-600">Trường THPT Võ Thị Sáu - Côn Đảo</p>
+                    <p class="text-sm text-gray-700 mt-2">
+                        Xây dựng một trang web Portfolio cá nhân bằng HTML/CSS và JavaScript để trưng bày các bài tập và dự án. Học hỏi và áp dụng các nguyên tắc thiết kế cơ bản (UI/UX) và responsive design.
+                    </p>
+                </div>
+
+                <div class="work-entry mb-6">
+                    <p class="text-xs text-gray-500 italic">05/2024 - 07/2024</p>
+                    <h3 class="text-base font-semibold text-gray-900 mt-1">THÀNH VIÊN BAN TỔ CHỨC SỰ KIỆN TÌNH NGUYỆN</h3>
+                    <p class="text-sm font-medium text-gray-600">Câu lạc bộ Tình nguyện </p>
+                    <p class="text-sm text-gray-700 mt-2">
+                        Phối hợp tổ chức sự kiện gây quỹ. Chịu trách nhiệm về truyền thông và hậu cần, rèn luyện kỹ năng làm việc nhóm và giải quyết vấn đề dưới áp lực.
+                    </p>
+                </div>
+            </div>
+
+            <!-- HỌC VẤN (EDUCATION) -->
+            <div class="mb-8">
+                <h2 class="section-title blue-text mb-6 flex items-center">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 mr-2"></i> HỌC VẤN
+                </h2>
+
+                <div class="mb-4">
+                    <p class="text-xs text-gray-500 italic">09/2025 - PRESENT</p>
+                    <h3 class="text-base font-semibold text-gray-900 mt-1">SINH VIÊN Công nghệ thông tin</h3>
+                    <p class="text-sm font-medium text-gray-600">Đại học Sư phạm Thành phố Hồ Chí Minh</p>
+                    <p class="text-sm font-light text-gray-700">Ghi chú: Mục tiêu hướng tới ngành Phát triển Phần mềm hoặc Quản trị Kinh doanh.</p>
+                </div>
+                <div class="mb-4">
+                    <p class="text-xs text-gray-500 italic">2022 - 2025</p>
+                    <h3 class="text-base font-semibold text-gray-900 mt-1">HỌC TẬP TẠI TRƯỜNG PHỔ THÔNG</h3>
+                    <p class="text-sm font-medium text-gray-600">Trường THPT Võ Thị Sáu - Côn Đảo</p>
+                </div>
+            </div>
+
+            <!-- CHỨNG CHỈ (CERTIFICATIONS) - Giữ lại cấu trúc, thay thế nội dung -->
+            <div class="mb-8">
+                <h2 class="section-title blue-text mb-6 flex items-center">
+                    <i data-lucide="award" class="w-6 h-6 mr-2"></i> CHỨNG CHỈ & KHÓA HỌC
+                </h2>
+                <div class="mb-4">
+                    <p class="text-xs text-gray-500 italic">2024</p>
+                    <h3 class="text-base font-semibold text-gray-900 mt-1">KHÓA HỌC NHẬP MÔN LẬP TRÌNH PYTHON</h3>
+                    <p class="text-sm font-medium text-gray-600">Nền tảng học trực tuyến [Tên nền tảng]</p>
+                    <p class="text-sm text-gray-700">Tóm tắt: Đã hoàn thành khóa học cơ bản về cú pháp và logic lập trình.</p>
+                </div>
+            </div>
+
+            <!-- THAM CHIẾU (REFERENCES) -->
+            <div class="mb-0">
+                <h2 class="section-title blue-text mb-6 flex items-center">
+                    <i data-lucide="user-check" class="w-6 h-6 mr-2"></i> THAM CHIẾU
+                </h2>
+                <div class="flex flex-col sm:flex-row justify-between text-sm space-y-4 sm:space-y-0">
+                    <div class="sm:w-1/2">
+                        <p class="font-bold uppercase">GIÁO VIÊN/HUẤN LUYỆN VIÊN</p>
+                        <p class="text-gray-700">GV Hướng nghiệp - [Tên trường]</p>
+                        <p class="text-gray-700">email@example.com</p>
+                        <p class="text-gray-700">(088) 123 4567</p>
+                    </div>
+                    <div class="sm:w-1/2">
+                        <p class="font-bold uppercase">NGƯỜI QUẢN LÝ DỰ ÁN CLB</p>
+                        <p class="text-gray-700">Trưởng nhóm/CLB [Tên CLB]</p>
+                        <p class="text-gray-700">email@example.com</p>
+                        <p class="text-gray-700">(088) 765 4321</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

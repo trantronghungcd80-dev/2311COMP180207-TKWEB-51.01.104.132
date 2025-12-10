@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halloween Cùng Trần Trọng Hưng</title>
+    <!-- Tải Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Thiết lập cấu hình Tailwind cho màu sắc chủ đề Halloween -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'halloween-orange': '#ff6600',
+                        'spooky-purple': '#5e35b1',
+                        'midnight': '#1a1a1a',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        // Đảm bảo font Creepster được sử dụng cho các tiêu đề
+                        spooky: ['Creepster', 'cursive'], 
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Import Font Creepster từ Google Fonts để tạo cảm giác kinh dị */
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+        
+        body {
+            background-color: #1a1a1a; /* Nền tối */
+            color: #f0f0f0; /* Chữ sáng */
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Định dạng chung cho các tiêu đề */
+        .section-title {
+            font-family: 'Creepster', cursive;
+            color: #ff6600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 102, 0, 0.5);
+        }
+
+        /* Hiệu ứng di chuột cho các mục trong danh sách sản phẩm */
+        .product-item {
+             transition: all 0.3s ease-in-out;
+        }
+        .product-item:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(255, 102, 0, 0.5);
+            border-left-color: #fef08a; /* Vàng sáng khi hover */
+        }
+        
+        /* CSS cho Audio/Video Overlay */
+        #audio-overlay {
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body class="selection:bg-halloween-orange selection:text-midnight">
+
+    <!-- Phần Âm Thanh (Phải được kích hoạt bởi người dùng) -->
+    <audio id="spooky-audio" loop>
+        <source src="hlw.mp3.mp3" type="audio/mpeg"> 
+        Trình duyệt của bạn không hỗ trợ phần tử audio.
+    </audio>
+
+    <!-- Overlay để yêu cầu tương tác và kích hoạt âm thanh -->
+    <div id="audio-overlay" class="fixed inset-0 bg-midnight bg-opacity-95 flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="text-center p-8 bg-gray-800 rounded-xl shadow-2xl border-2 border-halloween-orange">
+            <h1 class="text-4xl section-title mb-4">Chào mừng đến với Đêm Halloween</h1>
+            <p class="text-gray-300 mb-6">Nhấn vào để vào trang web và bật âm thanh ma quái!</p>
+            <button id="start-button" class="px-8 py-3 bg-halloween-orange text-midnight font-bold rounded-lg shadow-lg hover:bg-orange-700 transition duration-300 transform hover:scale-105">
+                Bắt đầu Tiệc Ma Quỷ
+            </button>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-midnight bg-opacity-90 backdrop-blur-sm shadow-xl border-b border-halloween-orange/50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <!-- Tên Chủ Sở Hữu/Website -->
+            <div class="text-2xl font-spooky text-halloween-orange">
+                Trần Trọng Hưng's Halloween
+            </div>
+            <!-- Menu điều hướng -->
+            <div class="space-x-4">
+                <a href="#history" class="text-gray-300 hover:text-halloween-orange transition duration-200">Lịch Sử</a>
+                <a href="#products" class="text-gray-300 hover:text-halloween-orange transition duration-200">Gian Hàng</a>
+                <a href="#gallery" class="text-gray-300 hover:text-halloween-orange transition duration-200">Bộ Sưu Tập</a>
+                <a href="#contact" class="text-gray-300 hover:text-halloween-orange transition duration-200">Liên Hệ</a>
+                <a href="#register" class="text-gray-300 hover:text-halloween-orange transition duration-200">Đăng Ký</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Banner Giới Thiệu -->
+        <section id="hero" class="text-center py-20 bg-gray-800/50 rounded-xl mb-16 border-4 border-spooky-purple/50 shadow-inner shadow-halloween-orange/30">
+            <h1 class="text-6xl sm:text-7xl font-spooky section-title mb-4 animate-pulse">
+                HALLOWEEN NIGHT
+            </h1>
+            <p class="text-xl text-gray-400 italic">Cùng khám phá mùa lễ hội ma quỷ tuyệt vời nhất!</p>
+            <p class="mt-4 text-sm text-gray-500">Website được xây dựng bởi Trần Trọng Hưng</p>
+        </section>
+
+        <!-- 1. Lịch Sử Halloween -->
+        <section id="history" class="py-16 mb-16">
+            <h2 class="text-5xl text-center section-title mb-10">Lịch Sử Ngày Halloween</h2>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                
+                <!-- Video Giới Thiệu (Placeholder) -->
+                <div class="relative rounded-lg overflow-hidden shadow-2xl border-4 border-halloween-orange/50">
+                    <div class="aspect-video">
+                        <!-- SỬA LỖI VIDEO YOUTUBE: DÙNG URL NHÚNG ĐƠN GIẢN HƠN -->
+                        <iframe 
+                            class="w-full h-full" 
+                            src="https://www.youtube.com/embed/1nYynjDFgDg"
+                            title="Video giới thiệu Halloween" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            onerror="document.getElementById('video-error-message').classList.remove('hidden')">
+                        </iframe>
+                    </div>
+                    <!-- LỚP PHỦ THÔNG BÁO LỖI KHI MỞ FILE CỤC BỘ (QUAN TRỌNG) -->
+                    <div id="video-error-message" class="absolute inset-0 bg-red-900/80 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-center">
+                        <svg class="w-12 h-12 text-yellow-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <h3 class="text-xl font-bold text-yellow-400">LƯU Ý QUAN TRỌNG (LỖI 153)</h3>
+                        <p class="text-sm text-gray-200 mt-2">Nếu bạn thấy lỗi video, đó là do **Trình duyệt đang chặn nội dung từ YouTube** khi bạn mở file HTML cục bộ (bằng `file:///...`).</p>
+                        <p class="text-sm text-yellow-300 font-semibold mt-1">Vui lòng chạy file này bằng **Live Server** (hoặc upload lên Host) để video hiển thị chính xác.</p>
+                        <button onclick="document.getElementById('video-error-message').classList.add('hidden');" class="mt-3 px-3 py-1 bg-halloween-orange text-midnight font-bold rounded-md text-sm">Thử Tải Lại</button>
+                    </div>
+
+                    <p class="text-center p-2 bg-gray-700 text-sm italic">Video: Nguồn gốc lễ hội Samhain cổ đại.</p>
+                </div>
+                <!-- Nội dung Lịch sử -->
+                <div class="space-y-4 text-gray-300 leading-relaxed">
+                    <p>Halloween, tên gốc là All Hallows' Eve, có nguồn gốc từ lễ hội Samhain của người Celt cổ đại, diễn ra cách đây hơn 2.000 năm tại khu vực mà ngày nay là Ireland, Vương quốc Anh và miền bắc nước Pháp.</p>
+                    <p>Lễ hội Samhain đánh dấu sự kết thúc của mùa hè và vụ mùa, bắt đầu mùa đông lạnh giá, một khoảng thời gian thường gắn liền với cái chết. Người Celt tin rằng vào đêm trước năm mới, ranh giới giữa thế giới người sống và người chết bị xóa nhòa. Họ tổ chức Samhain vào đêm 31 tháng Mười, khi đó họ tin rằng hồn ma người chết sẽ trở lại trái đất.</p>
+                    <p>Người Celt đốt lửa thiêng khổng lồ, mặc trang phục (costumes) và cố gắng bói toán vận mệnh của mình. Sau này, khi ảnh hưởng của Kitô giáo lan rộng, Giáo hội đã hợp nhất một số truyền thống Samhain vào các lễ tôn giáo của mình. Dần dần, ngày 31 tháng 10 trở thành Halloween như chúng ta biết ngày nay, với các hoạt động như trick-or-treating (xin kẹo), khắc bí ngô (jack-o'-lanterns) và tiệc tùng hóa trang.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Gian Hàng Các Sản Phẩm Halloween (Dạng List) -->
+        <section id="products" class="py-16 mb-16">
+            <h2 class="text-5xl text-center section-title mb-10">Gian Hàng Halloween Ma Quái</h2>
+            <p class="text-center text-gray-400 mb-8 italic">Các vật phẩm không thể thiếu cho đêm tiệc của bạn! (Phần này nằm ở đây)</p>
+
+            <ul class="space-y-6">
+                <!-- SẢN PHẨM 1: Trang phục Ma Cà Rồng -->
+                <li class="product-item p-6 bg-gray-800 rounded-xl shadow-xl transition duration-300 transform border-l-4 border-halloween-orange flex flex-col md:flex-row items-center">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgcyOFjdAaquXsygZ2ccp0ca3wHgLu4v7rIg&s" 
+                         alt="Trang phục Ma Cà Rồng" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/96x96/5e35b1/ffffff?text=VAMPIRE'"
+                         class="w-24 h-24 object-cover rounded-full mr-6 mb-4 md:mb-0 border-2 border-spooky-purple">
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-bold text-halloween-orange mb-1">Trang Phục Ma Cà Rồng Bá Tước</h3>
+                        <p class="text-gray-300">Áo choàng nhung đen đỏ sang trọng, kèm răng nanh giả và máu giả. Biến hình thành Dracula quyền lực chỉ trong một nốt nhạc!</p>
+                    </div>
+                    <span class="text-2xl font-bold text-white mt-4 md:mt-0 md:ml-6">599.000 VNĐ</span>
+                </li>
+
+                <!-- SẢN PHẨM 2: Bí Ngô Khổng Lồ -->
+                <li class="product-item p-6 bg-gray-800 rounded-xl shadow-xl transition duration-300 transform border-l-4 border-halloween-orange flex flex-col md:flex-row items-center">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYhT3GOGCIIGIdUkn1IXXuy5zluscrIEbtrw&s" 
+                         alt="Bí Ngô Khổng Lồ" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/96x96/ff6600/ffffff?text=PUMPKIN'"
+                         class="w-24 h-24 object-cover rounded-full mr-6 mb-4 md:mb-0 border-2 border-spooky-purple">
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-bold text-halloween-orange mb-1">Jack-O'-Lantern Thần Bí</h3>
+                        <p class="text-gray-300">Bí ngô nhựa phát sáng LED, chạm khắc khuôn mặt ma mị. Tuyệt vời để trang trí trước hiên nhà.</p>
+                    </div>
+                    <span class="text-2xl font-bold text-white mt-4 md:mt-0 md:ml-6">350.000 VNĐ</span>
+                </li>
+
+                <!-- SẢN PHẨM 3: Kẹo Ma Quái -->
+                <li class="product-item p-6 bg-gray-800 rounded-xl shadow-xl transition duration-300 transform border-l-4 border-halloween-orange flex flex-col md:flex-row items-center">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDWIfqxFiiXQDSYS6ovq1HSHoV8ONmTy6LvA&s" 
+                         alt="Kẹo Ma Quái" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/96x96/1a1a1a/ff6600?text=CANDY'"
+                         class="w-24 h-24 object-cover rounded-full mr-6 mb-4 md:mb-0 border-2 border-spooky-purple">
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-bold text-halloween-orange mb-1">Hộp Kẹo "Trick or Treat" Đặc Biệt</h3>
+                        <p class="text-gray-300">Tuyển tập các loại kẹo dẻo hình mắt, răng, và nhện. Món quà hoàn hảo cho những đứa trẻ dũng cảm.</p>
+                    </div>
+                    <span class="text-2xl font-bold text-white mt-4 md:mt-0 md:ml-6">120.000 VNĐ</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 3. Bộ Sưu Tập Ảnh Kinh Dị Halloween -->
+        <section id="gallery" class="py-16 mb-16">
+            <h2 class="text-5xl text-center section-title mb-10">Bộ Sưu Tập Ảnh Kinh Dị</h2>
+            <p class="text-center text-gray-400 mb-8 italic">Những hình ảnh rùng rợn được chọn lọc kỹ lưỡng.</p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="overflow-hidden rounded-lg shadow-xl hover:scale-[1.03] transition duration-300">
+                    <img src="https://png.pngtree.com/png-vector/20240710/ourlarge/pngtree-happy-halloween-ghost-png-image_13051963.png" alt="Ảnh Bóng Ma" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-xl hover:scale-[1.03] transition duration-300">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7VG5Mmcaj4SNJjfvC8FcTOREhRJclskAqXQ&s" alt="Ảnh Mặt Nạ Quỷ" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-xl hover:scale-[1.03] transition duration-300">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_ORTnpbeGI8pzPh-_GnsPhmV0qN_nfr7a2Q&s" alt="Ảnh Rừng Rợn" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-xl hover:scale-[1.03] transition duration-300">
+                    <img src="https://trieuhaotravel.vn/Uploads/images/leech/gdocs_1_20251023_171307_2148ed95.png" alt="Ảnh Lâu Đài Cũ" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-xl hover:scale-[1.03] transition duration-300">
+                    <img src="https://png.pngtree.com/png-clipart/20250106/original/pngtree-halloween-witch-png-image_4206875.png" alt="Ảnh Phù Thủy" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-xl hover:scale-[1.03] transition duration-300">
+                    <img src="https://img.lazcdn.com/g/p/0eb27e8afe3d787e4aae0c1e8d2e8bef.jpg_720x720q80.jpg" alt="Ảnh Xương Sọ" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-xl hover:scale-[1.03] transition duration-300">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqzahMXOcpE3teBmzEjTacBLd8XYzpI6bO7w&s" alt="Ảnh Ánh Sáng Ma Quái" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-xl hover:scale-[1.03] transition duration-300">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXkW6LBosfFgdb_XTQ1WpDv57RHGajX6OxlA&s" alt="Ảnh Dấu Máu" class="w-full h-full object-cover aspect-square">
+                </div>
+            </div>
+        </section>
+
+        <div class="grid md:grid-cols-2 gap-10">
+            <!-- 4. Form Liên Hệ -->
+            <section id="contact" class="py-16 bg-gray-800 rounded-xl p-8 shadow-2xl border-4 border-spooky-purple">
+                <h2 class="text-4xl text-center section-title mb-8">Form Liên Hệ Ma Quái</h2>
+                <p class="text-center text-gray-400 mb-6 italic">Gửi lời nhắn bí mật đến Trần Trọng Hưng.</p>
+                <form action="#" method="POST" class="space-y-4">
+                    <div>
+                        <label for="contact_name" class="block text-sm font-medium text-gray-300 mb-1">Họ tên/Bí danh</label>
+                        <input type="text" id="contact_name" name="contact_name" required
+                               class="w-full p-3 bg-midnight border border-spooky-purple rounded-md focus:ring-halloween-orange focus:border-halloween-orange text-white placeholder-gray-500">
+                    </div>
+                    <div>
+                        <label for="contact_email" class="block text-sm font-medium text-gray-300 mb-1">Email (để nhận phản hồi)</label>
+                        <input type="email" id="contact_email" name="contact_email" required
+                               class="w-full p-3 bg-midnight border border-spooky-purple rounded-md focus:ring-halloween-orange focus:border-halloween-orange text-white placeholder-gray-500">
+                    </div>
+                    <div>
+                        <label for="contact_message" class="block text-sm font-medium text-gray-300 mb-1">Lời nhắn</label>
+                        <textarea id="contact_message" name="contact_message" rows="4" required
+                                  class="w-full p-3 bg-midnight border border-spooky-purple rounded-md focus:ring-halloween-orange focus:border-halloween-orange text-white placeholder-gray-500"></textarea>
+                    </div>
+                    <button type="submit" class="w-full px-4 py-3 bg-halloween-orange text-midnight font-bold rounded-lg shadow-lg hover:bg-orange-700 transition duration-300 transform hover:scale-105">
+                        Gửi Lời Nguyền (Liên Hệ)
+                    </button>
+                </form>
+            </section>
+
+            <!-- 5. Form Đăng Kí Tham Gia Halloween -->
+            <section id="register" class="py-16 bg-gray-800 rounded-xl p-8 shadow-2xl border-4 border-halloween-orange">
+                <h2 class="text-4xl text-center section-title mb-8">Đăng Ký Tham Gia Sự Kiện</h2>
+                <p class="text-center text-gray-400 mb-6 italic">Đừng bỏ lỡ đêm tiệc hóa trang hoành tráng!</p>
+                <form action="#" method="POST" class="space-y-4">
+                    <div>
+                        <label for="reg_name" class="block text-sm font-medium text-gray-300 mb-1">Tên đầy đủ</label>
+                        <input type="text" id="reg_name" name="reg_name" required
+                               class="w-full p-3 bg-midnight border border-spooky-purple rounded-md focus:ring-halloween-orange focus:border-halloween-orange text-white placeholder-gray-500">
+                    </div>
+                    <div>
+                        <label for="reg_costume" class="block text-sm font-medium text-gray-300 mb-1">Ý tưởng Trang phục (Costume)</label>
+                        <input type="text" id="reg_costume" name="reg_costume" placeholder="Ví dụ: Zombie, Thần Chết, Harley Quinn..." required
+                               class="w-full p-3 bg-midnight border border-spooky-purple rounded-md focus:ring-halloween-orange focus:border-halloween-orange text-white placeholder-gray-500">
+                    </div>
+                    <div>
+                        <label for="reg_participants" class="block text-sm font-medium text-gray-300 mb-1">Số lượng người tham gia</label>
+                        <input type="number" id="reg_participants" name="reg_participants" min="1" value="1" required
+                               class="w-full p-3 bg-midnight border border-spooky-purple rounded-md focus:ring-halloween-orange focus:border-halloween-orange text-white">
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="reg_consent" name="reg_consent" required class="rounded text-halloween-orange focus:ring-halloween-orange">
+                        <label for="reg_consent" class="ml-2 block text-sm text-gray-400">Tôi đồng ý tuân thủ các quy tắc của đêm tiệc.</label>
+                    </div>
+                    <button type="submit" class="w-full px-4 py-3 bg-spooky-purple text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 transition duration-300 transform hover:scale-105">
+                        Đăng Ký Khám Phá Địa Ngục
+                    </button>
+                </form>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-midnight border-t border-halloween-orange/50 mt-16 py-6 text-center text-gray-500">
+        <p>&copy; 2025 Halloween Cùng Trần Trọng Hưng. All Hallows' Rights Reserved.</p>
+        <p class="text-xs mt-1">Thiết kế với HTML5, CSS3 (Tailwind CSS) & Đầy Rẫy Linh Hồn.</p>
+    </footer>
+
+    <!-- JavaScript để xử lý âm thanh và overlay -->
+    <script>
+        const startButton = document.getElementById('start-button');
+        const audioOverlay = document.getElementById('audio-overlay');
+        const spookyAudio = document.getElementById('spooky-audio');
+        
+        // Xử lý khi nhấn nút Bắt đầu
+        startButton.addEventListener('click', () => {
+            // 1. Luôn bắt đầu quá trình ẩn overlay ngay lập tức
+            audioOverlay.style.opacity = '0';
+            setTimeout(() => {
+                audioOverlay.style.display = 'none';
+            }, 500);
+
+            // 2. Cố gắng phát âm thanh
+            spookyAudio.volume = 0.3; // Đặt âm lượng vừa phải
+            spookyAudio.play()
+                .then(() => {
+                    console.log("Âm thanh ma quái đã bắt đầu.");
+                })
+                .catch(error => {
+                    // Thông báo lỗi nếu việc phát âm thanh thất bại (thường do placeholder file)
+                    console.warn("LỖI PHÁT ÂM THANH:", error.message);
+                    console.warn("LƯU Ý: Vui lòng đảm bảo rằng URL âm thanh đang hoạt động và là một file .mp3 hợp lệ. Một số trình duyệt vẫn có thể chặn autoplay ngay cả sau khi tương tác.");
+                });
+        });
+        
+        // Xử lý Form - Ngăn chặn gửi đi và hiển thị thông báo
+        document.getElementById('contact').querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showMessageBox("Cảm ơn bạn đã liên hệ!", "Lời nhắn của bạn đã được gửi thành công. Chúng tôi sẽ trả lời bạn sớm nhất có thể. Chúc bạn một mùa Halloween vui vẻ!", "success");
+        });
+        
+        document.getElementById('register').querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showMessageBox("Đăng ký thành công!", "Bạn đã đăng ký tham gia sự kiện Halloween! Hãy chuẩn bị trang phục thật ấn tượng nhé!", "success");
+        });
+
+        // Hàm thay thế alert()
+        function showMessageBox(title, message, type) {
+            const existingBox = document.getElementById('message-box-modal');
+            if (existingBox) existingBox.remove();
+
+            const bgColor = type === 'success' ? 'bg-green-800' : 'bg-red-800';
+            const borderColor = type === 'success' ? 'border-green-400' : 'border-red-400';
+
+            const modalHtml = `
+                <div id="message-box-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[1001]">
+                    <div class="bg-gray-900 ${bgColor} border-4 ${borderColor} p-6 rounded-xl shadow-2xl max-w-sm mx-4">
+                        <h3 class="text-xl font-bold text-white mb-3 section-title">${title}</h3>
+                        <p class="text-gray-300 mb-6">${message}</p>
+                        <button onclick="document.getElementById('message-box-modal').remove()" 
+                                 class="w-full px-4 py-2 bg-halloween-orange text-midnight font-semibold rounded-lg hover:bg-orange-700 transition duration-200">
+                            Đóng
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
+
+        // Tự động ẩn thông báo lỗi video nếu trang được tải qua http/https (tức là đã chạy trên server)
+        if (window.location.protocol.startsWith('http')) {
+            const errorMsg = document.getElementById('video-error-message');
+            if (errorMsg) {
+                errorMsg.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

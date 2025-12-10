@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Cá Nhân - Trần Trọng Hưng</title>
+    <!-- Tải Tailwind CSS để thiết kế nhanh chóng và đáp ứng -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Tùy chỉnh font chữ cho toàn bộ trang */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #e2e8f0; /* Màu chữ sáng cho nền tối */
+            /* NỀN DARK MODE GRADIENT SÂU VÀ SANG TRỌNG */
+            background: linear-gradient(135deg, #1f2937 0%, #0f172a 100%); 
+        }
+        /* Hiệu ứng chuyển đổi cho các khối nội dung */
+        .content-section {
+            display: none;
+            /* Tăng cường hiệu ứng fade in */
+            animation: fadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Thẻ nav-link tùy chỉnh */
+        .nav-link {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 0.5rem 0.75rem;
+        }
+        .nav-link:hover {
+            color: #4f46e5; /* Màu Indigo đậm khi hover */
+        }
+        .active-link {
+            border-bottom: 3px solid #4f46e5; /* Màu Indigo cho active */
+            font-weight: 700;
+            color: #4f46e5;
+        }
+        /* Hiệu ứng cho các card lớn (Sáng trên nền tối) */
+        .main-card {
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth Cubic Bezier Transition */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Shadow tối hơn để nổi trên nền tối */
+            /* GIỮ NỀN TRẮNG ĐỂ TẠO ĐỘ TƯƠNG PHẢN CỰC MẠNH */
+            background: #ffffff;
+            color: #1f2937; /* Đổi màu chữ trong card thành màu tối */
+        }
+        .main-card:hover {
+            transform: translateY(-8px); /* Nhấc lên nhiều hơn */
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35); /* Bóng đổ rất lớn khi hover */
+        }
+        /* Nút CTA Gradient */
+        .cta-button {
+            background: linear-gradient(90deg, #4f46e5 0%, #6366f1 100%); /* Gradient cho button */
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+        }
+        .cta-button:hover {
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+            transform: scale(1.05);
+        }
+        .cta-button:active {
+            transform: scale(0.98);
+            box-shadow: none;
+        }
+        /* Hiệu ứng Pulse nhẹ cho ảnh đại diện */
+        .profile-pulse {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+            }
+        }
+        /* Bản đồ */
+        .map-container {
+            height: 400px;
+            overflow: hidden;
+            border-radius: 0.75rem; 
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+        }
+        /* Tăng cường độ nổi bật cho các mốc thời gian học tập */
+        .study-year {
+            transition: all 0.3s ease-in-out;
+            cursor: default;
+        }
+        .study-year:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app" class="min-h-screen flex flex-col">
+
+        <!-- Header và Thanh Điều Hướng (Navigation) -->
+        <!-- Giữ Header trắng để tách biệt với nền tối -->
+        <header class="bg-white shadow-xl sticky top-0 z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center">
+                <!-- Tên Cá Nhân/Logo -->
+                <div class="text-3xl font-extrabold text-gray-800 mb-4 sm:mb-0">
+                    <span class="text-indigo-600">T.</span><span class="text-gray-900">Portfolio</span>
+                </div>
+                
+                <!-- Menu Điều Hướng -->
+                <nav class="flex space-x-4 sm:space-x-6 text-lg font-medium text-gray-600">
+                    <a id="nav-home" class="nav-link active-link" onclick="showSection('home')">Trang Chủ</a>
+                    <a id="nav-study" class="nav-link" onclick="showSection('study')">Kế Hoạch Học Tập</a>
+                    <a id="nav-hobbies" class="nav-link" onclick="showSection('hobbies')">Sở Thích & Web Ưa Thích</a>
+                    <a id="nav-contact" class="nav-link" onclick="showSection('contact')">Liên Hệ</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Nội dung chính của trang web -->
+        <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+            <!-- 1. Trang Chủ / Giới Thiệu (Mặc định hiển thị) -->
+            <section id="home-section" class="content-section" style="display: block;">
+                <!-- Card nền trắng, chữ đen, nổi bật trên nền tối -->
+                <div class="p-8 md:p-12 rounded-2xl shadow-xl border border-gray-100 flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-12 main-card">
+                    
+                    <!-- Khối Ảnh Đại Diện -->
+                    <div class="flex-shrink-0">
+                        <img src="canhan.jpg.jpg" 
+                             alt="Ảnh Đại Diện Cá Nhân" 
+                             class="w-48 h-48 object-cover rounded-full border-4 border-indigo-500 shadow-2xl transition duration-500 hover:scale-105 profile-pulse">
+                    </div>
+
+                    <!-- Khối Thông Tin Cá Nhân -->
+                    <div class="flex-grow text-center md:text-left">
+                        <span class="text-md font-bold text-indigo-600 uppercase tracking-widest mb-2 block">Xin Chào, Tôi Là</span>
+                        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4">
+                            TRẦN TRỌNG HƯNG
+                        </h1>
+                        <p class="text-xl text-gray-600 mb-6 italic border-l-4 border-gray-300 pl-4">
+                            Sinh viên Mã số: 51.01.104.132
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
+                            <p><span class="font-extrabold text-gray-900">Tuổi:</span> 18</p>
+                            <p><span class="font-extrabold text-gray-900">Ngày Sinh:</span> 08/11/2007</p>
+                            <p><span class="font-extrabold text-gray-900">Điện Thoại:</span> 0373014000</p>
+                            <!-- Đã điền email cá nhân -->
+                            <p><span class="font-extrabold text-gray-900">Email:</span> <a href="mailto:trantronghungcd80@gmail.com" class="text-indigo-600 hover:underline">trantronghungcd80@gmail.com</a></p>
+                        </div>
+                        
+                        <!-- Button với hiệu ứng chuyên nghiệp hơn (dùng class cta-button) -->
+                        <a href="#" onclick="showSection('study')" class="mt-8 inline-block cta-button text-white px-8 py-3 rounded-full font-bold transition duration-300 transform hover:scale-105 active:scale-95">
+                            Khám Phá Kế Hoạch Học Tập &rarr;
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Trang Kế Hoạch Học Tập -->
+            <section id="study-section" class="content-section">
+                <div class="p-8 md:p-10 rounded-2xl shadow-xl main-card">
+                    <h2 class="text-3xl font-extrabold text-gray-900 mb-8 border-b-4 pb-2 border-indigo-500">
+                        📚 Lộ Trình Học Tập 4 Năm Siêu Sặc Sỡ
+                    </h2>
+                    <p class="text-gray-600 mb-10 border-l-4 border-gray-200 pl-4 italic">
+                        Kế hoạch phát triển cá nhân và học thuật được thiết lập qua từng năm học, hướng tới mục tiêu tốt nghiệp loại Giỏi và có kinh nghiệm thực tế.
+                    </p>
+                    <div class="space-y-10">
+                        <!-- Năm Nhất: Màu Indigo (Nền tảng) -->
+                        <div class="p-6 border-l-4 border-indigo-600 bg-indigo-100 rounded-xl shadow-lg study-year">
+                            <h3 class="text-2xl font-extrabold text-indigo-800 mb-3 flex items-center">
+                                <span class="text-3xl mr-3">🚀</span> Năm 1: Xây Dựng Nền Tảng Cơ Bản
+                            </h3>
+                            <ul class="list-disc list-inside space-y-2 text-gray-800">
+                                <li>**Lập trình C++:** Thành thạo ngôn ngữ lập trình C++ (bao gồm cấu trúc dữ liệu và giải thuật) với 100% tự tin.</li>
+                                <li>**Tiếng Anh:** Tập trung học Tiếng Anh, đặt mục tiêu đạt trình độ B2 hoặc tương đương, củng cố kỹ năng giao tiếp.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Năm 2: Màu Sky/Cyan (Thử thách) -->
+                        <div class="p-6 border-l-4 border-cyan-600 bg-cyan-100 rounded-xl shadow-lg study-year">
+                            <h3 class="text-2xl font-extrabold text-cyan-800 mb-3 flex items-center">
+                                <span class="text-3xl mr-3">🏆</span> Năm 2: Thử Thách & Mở Rộng Kiến Thức
+                            </h3>
+                            <ul class="list-disc list-inside space-y-2 text-gray-800">
+                                <li>**Thi đấu:** Tham gia và đạt thành tích cao trong các kỳ thi về tin học như ICPC.</li>
+                                <li>**Nghiên cứu:** Chủ động tìm hiểu và thử nghiệm làm nghiên cứu khoa học, xây dựng báo cáo khoa học cơ bản.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Năm 3: Màu Emerald/Green (Kinh nghiệm) -->
+                        <div class="p-6 border-l-4 border-emerald-600 bg-emerald-100 rounded-xl shadow-lg study-year">
+                            <h3 class="text-2xl font-extrabold text-emerald-800 mb-3 flex items-center">
+                                <span class="text-3xl mr-3">💼</span> Năm 3: Tích Lũy Kinh Nghiệm & Chuyên Môn Sâu
+                            </h3>
+                            <ul class="list-disc list-inside space-y-2 text-gray-800">
+                                <li>**Thực tập/Việc làm:** Tìm kiếm việc làm thêm hoặc thực tập tại các công ty công nghệ, áp dụng kiến thức chuyên môn.</li>
+                                <li>**Nghiên cứu:** Tiếp tục và hoàn thành các đề tài nghiên cứu khoa học một cách thật chuẩn chỉ, hướng tới công bố quốc tế.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Năm Tư: Màu Rose/Pink (Hoàn thiện & Tốt nghiệp) -->
+                        <div class="p-6 border-l-4 border-rose-600 bg-rose-100 rounded-xl shadow-lg study-year">
+                            <h3 class="text-2xl font-extrabold text-rose-800 mb-3 flex items-center">
+                                <span class="text-3xl mr-3">🎓</span> Năm 4: Hoàn Thiện & Tốt Nghiệp Xuất Sắc
+                            </h3>
+                            <ul class="list-disc list-inside space-y-2 text-gray-800">
+                                <li>**Thực tập Chuyên sâu:** Tiếp tục chương trình thực tập hoặc làm việc để tích lũy kinh nghiệm làm việc chuyên nghiệp.</li>
+                                <li>**Mục tiêu:** Cố gắng hoàn thành Đồ án/Khóa luận Tốt nghiệp xuất sắc và ra trường với **bằng Giỏi**.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Trang Sở Thích và Web Ưa Thích -->
+            <section id="hobbies-section" class="content-section">
+                <div class="p-8 md:p-10 rounded-2xl shadow-xl main-card">
+                    <h2 class="text-3xl font-extrabold text-gray-900 mb-6 border-b-4 pb-2 border-indigo-500">
+                        🌟 Sở Thích & Các Nguồn Tài Nguyên Yêu Thích
+                    </h2>
+
+                    <!-- Sở Thích -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Sở Thích Cá Nhân</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="p-5 border border-gray-100 rounded-xl hover:shadow-lg transition duration-300 main-card">
+                                <p class="text-xl font-medium flex items-center mb-2 text-gray-800">
+                                    <span class="text-3xl mr-3 text-indigo-500">🎧</span> Nghe Podcast và Audiobooks
+                                </p>
+                                <p class="text-gray-600">Tôi thích nghe podcast về tâm lý học và kinh doanh trong lúc tập thể dục. Nó giúp tôi học hỏi liên tục và mở rộng tư duy.</p>
+                            </div>
+                            <div class="p-5 border border-gray-100 rounded-xl hover:shadow-lg transition duration-300 main-card">
+                                <p class="text-xl font-medium flex items-center mb-2 text-gray-800">
+                                    <span class="text-3xl mr-3 text-indigo-500">🎮</span> Chơi Game Chiến Thuật
+                                </p>
+                                <p class="text-gray-600">Các trò chơi như XCOM hoặc Age of Empires rèn luyện khả năng tư duy chiến lược, quản lý tài nguyên và giải quyết vấn đề.</p>
+                            </div>
+                            <!-- Thêm sở thích khác của bạn -->
+                        </div>
+                    </div>
+
+                    <!-- Trang Web Ưa Thích -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Các Trang Web Học Tập Ưa Thích</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition duration-150">
+                                <span class="text-indigo-500 text-2xl mr-3">🔗</span> 
+                                <a href="https://dev.to" target="_blank" class="hover:text-indigo-600 transition duration-200 font-medium">
+                                    Dev.to: Cộng đồng lập trình viên, nơi chia sẻ các bài viết kỹ thuật sâu sắc.
+                                </a>
+                            </li>
+                            <li class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition duration-150">
+                                <span class="text-indigo-500 text-2xl mr-3">🔗</span>
+                                <a href="https://www.freecodecamp.org" target="_blank" class="hover:text-indigo-600 transition duration-200 font-medium">
+                                    freeCodeCamp: Các khóa học lập trình miễn phí, tài nguyên tuyệt vời cho thực hành.
+                                </a>
+                            </li>
+                            <!-- Thêm trang web ưa thích khác của bạn -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Trang Liên Hệ -->
+            <section id="contact-section" class="content-section">
+                <div class="p-8 md:p-10 rounded-2xl shadow-xl main-card">
+                    <h2 class="text-3xl font-extrabold text-gray-900 mb-6 border-b-4 pb-2 border-indigo-500">
+                        📞 Liên Hệ & Tìm Đường
+                    </h2>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                        <!-- KHỐI LIÊN HỆ TRỰC TIẾP, MẠNG XÃ HỘI & FORM -->
+                        <div>
+                            <!-- Địa Chỉ Email Cá Nhân (ĐƯỢC LÀM NỔI BẬT) -->
+                            <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Liên Hệ Trực Tiếp Qua Email</h3>
+                            <div class="p-5 bg-indigo-50 rounded-xl border-l-4 border-indigo-600 mb-6 shadow-lg">
+                                <p class="text-sm font-medium text-gray-800 mb-2">Địa chỉ Email cá nhân của bạn:</p>
+                                <a href="mailto:trantronghungcd80@gmail.com" class="text-xl font-extrabold text-indigo-800 hover:text-indigo-900 transition duration-200 break-all">
+                                    trantronghungcd80@gmail.com
+                                </a>
+                                <p class="text-xs text-gray-700 mt-2">
+                                    Vui lòng nhấp vào địa chỉ trên để gửi email nhanh.
+                                </p>
+                            </div>
+                            
+                            <!-- Bổ sung: Liên kết Mạng xã hội -->
+                            <h3 class="text-2xl font-semibold text-indigo-700 mb-4 mt-6">Kết Nối Với Tôi</h3>
+                            <div class="flex space-x-8 mb-8">
+                                <!-- Facebook Link -->
+                                <a href="https://www.facebook.com/tronghung.tran.5817/?locale=vi_VN" target="_blank" class="flex items-center space-x-2 text-indigo-600 hover:text-indigo-800 transition transform hover:scale-110">
+                                    <!-- Icon Facebook (SVG) -->
+                                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.733 0-1.325.592-1.325 1.325v21.35c0 .733.592 1.325 1.325 1.325h11.49l-.001-8.339h-2.772v-3.236h2.772v-2.353c0-2.753 1.678-4.257 4.14-4.257 1.173 0 2.176.087 2.463.126v2.7h-1.638c-1.284 0-1.53.609-1.53 1.51v1.996h3.011l-.391 3.236h-2.62v8.339h6.142c.733 0 1.325-.592 1.325-1.325v-21.35c0-.733-.592-1.325-1.325-1.325z"/></svg>
+                                    <span class="font-medium hidden sm:inline">Facebook</span>
+                                </a>
+                                <!-- Gmail Link -->
+                                <a href="mailto:trantronghungcd80@gmail.com" target="_blank" class="flex items-center space-x-2 text-indigo-600 hover:text-indigo-800 transition transform hover:scale-110">
+                                    <!-- Icon Email (SVG) - Dùng icon phong bì thư đơn giản, chuyên nghiệp -->
+                                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                    <span class="font-medium hidden sm:inline">Gmail</span>
+                                </a>
+                                <!-- Github Link ĐÃ CẬP NHẬT -->
+                                <a href="https://github.com/trantronghungcd80-dev" target="_blank" class="flex items-center space-x-2 text-indigo-600 hover:text-indigo-800 transition transform hover:scale-110">
+                                    <!-- Icon Github (SVG) -->
+                                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.6.111.82-.259.82-.575 0-.285-.01-1.04-.015-2.04-3.344.726-4.042-1.61-4.042-1.61-.546-1.387-1.334-1.758-1.334-1.758-1.09-.745.082-.729.082-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.835 2.809 1.305 3.492.998.108-.77.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.469-2.381 1.236-3.22-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.003.404 2.292-1.552 3.3-1.23 3.3-1.23.653 1.652.242 2.873.118 3.176.766.839 1.235 1.911 1.235 3.22 0 4.61-2.808 5.626-5.474 5.925.43.373.823 1.102.823 2.222 0 1.604-.015 2.899-.015 3.284 0 .318.22.69.825.574C20.565 21.801 24 17.299 24 12 24 5.373 18.627 0 12 0z"/></svg>
+                                    <span class="font-medium hidden sm:inline">GitHub</span>
+                                </a>
+                            </div>
+
+                            <!-- Form Liên Hệ -->
+                            <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Gửi Tin Nhắn Nhanh Qua Form</h3>
+                            <form id="contact-form" class="space-y-4">
+                                <div>
+                                    <label for="contact-name" class="block text-sm font-medium text-gray-700 mb-1">Họ Tên</label>
+                                    <input type="text" id="contact-name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
+                                </div>
+                                <div>
+                                    <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">Địa chỉ Email</label>
+                                    <input type="email" id="contact-email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
+                                </div>
+                                <div>
+                                    <label for="contact-message" class="block text-sm font-medium text-gray-700 mb-1">Nội dung Email</label>
+                                    <textarea id="contact-message" name="message" rows="5" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"></textarea>
+                                </div>
+                                <button type="submit" class="w-full cta-button text-white px-6 py-3 rounded-lg font-bold transition duration-300 transform hover:scale-[1.01] active:scale-[0.99]">
+                                    Gửi Tin Nhắn
+                                </button>
+                                <p id="form-message" class="mt-3 text-center text-sm hidden"></p>
+                            </form>
+                        </div>
+
+                        <!-- Khối Bản Đồ -->
+                        <div>
+                            <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Vị Trí Của Tôi (Để Bản Đồ)</h3>
+                            <div class="map-container shadow-2xl">
+                                <!-- ĐÃ CẬP NHẬT ĐỊA CHỈ: 138/15 Phường 2 Nguyễn Trãi Quận 5 Hồ Chí Minh -->
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.615277418968!2d106.68532297448937!3d10.76387068936655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1e682a8563%3A0xa19c72c479413284!2zMTM4LzE1IFRy4bqnbSBOZ3V54buFbiBUcsOjYmkgVGjDoW5oIGjGoCwgUGjGsOG7nW5nIDIsIFF14bqtbiA1LCBUaMOgbmggcGjhu5kgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1701982000000" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+                            <!-- Cập nhật chú thích địa chỉ -->
+                            <p class="mt-4 text-sm text-gray-500 text-center">
+                                Địa chỉ hiện tại: 138/15 Phường 2 Nguyễn Trãi Quận 5 Hồ Chí Minh.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white mt-12 py-6 shadow-2xl">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <p class="text-sm">&copy; 2025 Trần Trọng Hưng. Thiết Kế Portfolio Cá Nhân Cao Cấp. </p>
+                <div class="flex justify-center space-x-6 mt-3 text-lg">
+                    <!-- Link Facebook -->
+                    <a href="https://www.facebook.com/tronghung.tran.5817/?locale=vi_VN" target="_blank" class="hover:text-indigo-400 transition transform hover:scale-110">Facebook</a>
+                    <!-- Link Gmail -->
+                    <a href="mailto:trantronghungcd80@gmail.com" target="_blank" class="hover:text-indigo-400 transition transform hover:scale-110">Gmail</a>
+                    <!-- Link Github ĐÃ CẬP NHẬT -->
+                    <a href="https://github.com/trantronghungcd80-dev" target="_blank" class="hover:text-indigo-400 transition transform hover:scale-110">GitHub</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Hàm xử lý việc chuyển đổi giữa các tab/section
+        function showSection(sectionId) {
+            // 1. Ẩn tất cả các section nội dung
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // 2. Loại bỏ trạng thái active khỏi tất cả các liên kết điều hướng
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active-link');
+            });
+
+            // 3. Hiển thị section được chọn
+            const targetSection = document.getElementById(sectionId + '-section');
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+
+            // 4. Thêm trạng thái active cho liên kết điều hướng tương ứng
+            const activeLink = document.getElementById('nav-' + sectionId);
+            if (activeLink) {
+                activeLink.classList.add('active-link');
+            }
+        }
+
+        // Xử lý sự kiện gửi form (chỉ hiển thị thông báo, không gửi thực tế)
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const messageElement = document.getElementById('form-message');
+            messageElement.textContent = 'Cảm ơn bạn! Tính năng gửi email hiện đang cần tích hợp máy chủ (backend) để hoạt động. Vui lòng gửi trực tiếp đến email đã cung cấp.';
+            messageElement.classList.remove('hidden');
+            messageElement.classList.remove('text-red-600', 'text-green-600');
+            messageElement.classList.add('text-indigo-600', 'font-bold');
+            
+            // Tự động ẩn thông báo sau 5 giây
+            setTimeout(() => {
+                messageElement.classList.add('hidden');
+            }, 5000);
+        });
+
+        // Đảm bảo trang chủ được hiển thị khi tải lần đầu
+        showSection('home');
+    </script>
+
+</body>
+</html>

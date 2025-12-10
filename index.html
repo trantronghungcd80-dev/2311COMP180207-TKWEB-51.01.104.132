@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Mục 6 Bài Viết</title>
+    <!-- Tải Tailwind CSS để tạo kiểu dáng hiện đại và đáp ứng -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Thiết lập font Inter làm font chính */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Màu nền nhẹ */
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1e40af',
+                        'light-blue': '#3b82f6',
+                        'hover-blue': '#1c5e9a',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 sm:p-8">
+
+    <!-- Header / Tiêu đề chính -->
+    <header class="w-full max-w-4xl mb-10">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center mb-2">
+            Danh Mục Bài Viết Nổi Bật
+        </h1>
+        <p class="text-lg text-gray-500 text-center">
+            Khám phá 6 chủ đề được quan tâm nhất hiện nay.
+        </p>
+    </header>
+
+    <!-- Khu vực hiển thị 6 bài viết (Grid Layout) -->
+    <main class="w-full max-w-6xl">
+        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            
+            <!-- Thẻ Bài Viết Số 1: Web Cá Nhân -->
+            <a href="trangcanhan.html" class="block">
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border border-gray-100">
+                    <span class="text-sm font-semibold text-primary-blue bg-blue-100 px-3 py-1 rounded-full inline-block mb-3">Phát Triển Web</span>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">
+                        Web Cá Nhân
+                    </h2>
+                    <p class="text-gray-600 line-clamp-3">
+                        Hướng dẫn chi tiết cách xây dựng portfolio cá nhân chuyên nghiệp, thể hiện kỹ năng và dự án ấn tượng nhất của bạn.
+                    </p>
+                </div>
+            </a>
+
+            <!-- Thẻ Bài Viết Số 2: Quản Lý Sản Phẩm -->
+            <a href="quanlisanpham.html" class="block">
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border border-gray-100">
+                    <span class="text-sm font-semibold text-primary-blue bg-blue-100 px-3 py-1 rounded-full inline-block mb-3">Product Management</span>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">
+                        Quản Lý Sản Phẩm
+                    </h2>
+                    <p class="text-gray-600 line-clamp-3">
+                        Khám phá các phương pháp Agile và Scrum để tối ưu hóa quy trình phát triển và đưa sản phẩm thành công ra thị trường.
+                    </p>
+                </div>
+            </a>
+            
+            <!-- Thẻ Bài Viết Số 3: Layout Web -->
+            <a href="boostrap.html" class="block">
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border border-gray-100">
+                    <span class="text-sm font-semibold text-primary-blue bg-blue-100 px-3 py-1 rounded-full inline-block mb-3">Thiết Kế UI/UX</span>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">
+                        Layout Web
+                    </h2>
+                    <p class="text-gray-600 line-clamp-3">
+                        Nghệ thuật sắp xếp bố cục (layout) website responsive, đảm bảo trải nghiệm người dùng tuyệt vời trên mọi thiết bị.
+                    </p>
+                </div>
+            </a>
+
+            <!-- Thẻ Bài Viết Số 4: Hồ Cá Vui Nhộn -->
+            <a href="hồ cá vui nhôn new.html" class="block">
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border border-gray-100">
+                    <span class="text-sm font-semibold text-primary-blue bg-blue-100 px-3 py-1 rounded-full inline-block mb-3">Giải Trí/Sáng Tạo</span>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">
+                        Hồ Cá Vui Nhộn
+                    </h2>
+                    <p class="text-gray-600 line-clamp-3">
+                        Ý tưởng thiết kế và lập trình một mô phỏng hồ cá tương tác đơn giản bằng HTML/CSS/JS, phù hợp cho người mới bắt đầu.
+                    </p>
+                </div>
+            </a>
+            
+            <!-- Thẻ Bài Viết Số 5: Trang Halloween -->
+            <a href="halloween.html" class="block">
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border border-gray-100">
+                    <span class="text-sm font-semibold text-primary-blue bg-blue-100 px-3 py-1 rounded-full inline-block mb-3">Thiết Kế Đồ Họa</span>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">
+                        Trang Halloween
+                    </h2>
+                    <p class="text-gray-600 line-clamp-3">
+                        Bí quyết tạo hiệu ứng ma mị và thiết kế giao diện độc đáo, thu hút cho một trang web chủ đề Halloween trong một đêm.
+                    </p>
+                </div>
+            </a>
+
+            <!-- Thẻ Bài Viết Số 6: Trang CV -->
+            <a href="CV.html" class="block">
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border border-gray-100">
+                    <span class="text-sm font-semibold text-primary-blue bg-blue-100 px-3 py-1 rounded-full inline-block mb-3">Sáng Tạo Web</span>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">
+                        Trang CV
+                    </h2>
+                    <p class="text-gray-600 line-clamp-3">
+                        Tạo ra một bản CV trực tuyến (online resume) hấp dẫn và tối ưu hóa cho công cụ tìm kiếm, giúp bạn nổi bật hơn trong mắt nhà tuyển dụng.
+                    </p>
+                </div>
+            </a>
+
+        </div>
+    </main>
+    
+    <!-- Footer đơn giản -->
+    <footer class="w-full max-w-4xl mt-12 pt-6 border-t border-gray-300 text-center">
+        <p class="text-sm text-gray-500">
+            Trang web được thiết kế để hiển thị danh sách bài viết. Các liên kết là giữ chỗ (#) và cần được thay thế bằng URL thực tế.
+        </p>
+    </footer>
+
+</body>
+</html>
