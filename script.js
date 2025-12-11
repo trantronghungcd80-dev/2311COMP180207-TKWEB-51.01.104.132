@@ -6,11 +6,11 @@ const bgMusic = document.getElementById("bgMusic");
 
 let musicOn = false;
 const fishImages = [
-  "images/fish1.png",
-  "images/fish2.png",
-  "images/fish3.png",
-  "images/fish4.png",
-  "images/fish5.png",
+  "fish1.png",
+  "fish2.png",
+  "fish3.png",
+  "fish4.png",
+  "fish5.png",
 ];
 
 // 👉 Tách riêng hàm thêm cá
@@ -66,3 +66,4 @@ setInterval(createBubble, 800);
 btnReset.addEventListener("click", () => {
   document.querySelectorAll(".fish, .bubble").forEach((el) => el.remove());
 });
+
