@@ -45,7 +45,7 @@ body {
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: url("images/bg.jpg") no-repeat center;
+  background: url("bg.jpg") no-repeat center;
   background-size: cover;
   overflow: hidden;
 }
@@ -111,3 +111,4 @@ body {
     opacity: 0;
   }
 }
+
